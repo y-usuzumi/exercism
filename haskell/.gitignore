@@ -1,0 +1,5 @@
+.direnv
+.stack-work
+.vscode
+dist-newstyle
+

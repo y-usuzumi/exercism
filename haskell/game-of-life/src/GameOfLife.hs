@@ -25,7 +25,14 @@ neighbors =
   ]
 
 emptyST :: Int -> Int -> ST s (STGrid s)
-emptyST rows cols = newGenArray (0, rows - 1) (\_ -> newArray (0, cols - 1) 0)
+emptyST rows cols =
+  -- This is not supported by the stackage version in exercism
+  -- newGenArray (0, rows - 1) (\_ -> newArray (0, cols - 1) 0)
+  do
+    st <- newArray_ (0, rows - 1)
+    forM_ [0 .. rows - 1] $ \rowIdx ->
+      newArray (0, cols - 1) 0 >>= writeArray st rowIdx
+    return st
 
 gridToST :: [[Int]] -> ST s (STGrid s)
 gridToST grid = do
